@@ -1,0 +1,28 @@
+{
+  "navbar": {
+    "home": "home",
+    "store": "store",
+    "aboutUs": "about us"
+  },
+  "store": {
+    "categories": "categories"
+  },
+  "categories": {
+    "all": "view all"
+  },
+  "product": {
+    "width": "width",
+    "length": "length",
+    "height": "height",
+    "materials": "materials",
+    "price": "price"
+  },
+  "btn": {
+    "buy": "buy"
+  },
+  "signInLan": {
+    "login": "login",
+    "password": "password"
+  }
+
+}

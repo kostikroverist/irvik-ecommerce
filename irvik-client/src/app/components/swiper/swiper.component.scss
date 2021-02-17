@@ -1,0 +1,31 @@
+@import "../../../scss/variables";
+
+
+.slide {
+  position: relative;
+  &__button {
+    position: absolute;
+    bottom: 22px;
+    right: 33px;
+    padding: .24em .27em;
+    width: 300px;
+    background-image: $border-gradient-for-btn;
+    border-radius: 1.8em;
+    z-index: 100;
+    button {
+      border-radius: 1.8em;
+      width: 100%;
+      color: #BC5A00;
+      padding: .5em;
+      background-color: #f0eeee;
+      font-size: 1.5rem;
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      line-height: 1.3;
+      transition: background-color .3s ease-in-out;
+      &:hover {
+        background-color: #f7f2f2;
+      }
+    }
+  }
+}

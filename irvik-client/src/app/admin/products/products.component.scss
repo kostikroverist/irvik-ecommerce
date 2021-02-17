@@ -1,0 +1,158 @@
+@import "../../../scss/variables";
+@import "../../../scss/mixins";
+
+.form {
+  @include flex(row, wrap, space-between, flex-start);
+  &__left {
+    width: 50%;
+    border-right: 1px solid rgb(231, 231, 231);
+  }
+
+  &__control-container {
+    @include flex(row, wrap, space-around, center);
+  }
+
+  &__control {
+    width: 99%;
+    &--50 {
+      width: 49%;
+    }
+    &--30 {
+      width: 32%;
+    }
+  }
+  &__upload--wrapper {
+    margin-top: .5em;
+    width: 100%;
+    @include flex(row, wrap, center, center)
+  }
+
+  &__upload {
+    display: none;
+  }
+
+  &__upload-btn {
+    display: block;
+    width: 50%;
+    padding: .6em;
+    @include flex(row, wrap, center, center);
+    background-image: $header-bg;
+    border-radius: .4em;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    box-shadow: $basic-shadow;
+    &:hover {
+      opacity: .9;
+    }
+    &:active {
+      margin-top: .2em;
+      transform: scale(.95);
+    }
+  }
+  &__images {
+    @include flex (row, wrap, space-around, stretch);
+    margin-top: 1em;
+    mat-card {
+      width: 31%;
+      height: auto;
+      padding: .3em;
+      margin-bottom: .5em;
+    }
+    img {
+      object-fit: cover;
+      object-position: center;
+      width: 99%;
+    }
+  }
+
+  &__image-delete-btn-wrapper {
+    @include flex(row, wrap, center, center);
+    margin-top: .5em;
+  }
+  &__right {
+    width: 50%;
+    border-left: 1px solid rgb(231, 231, 231);
+  }
+
+  &__buttons {
+    @include flex (row, wrap, space-around, center);
+    width: 100%;
+  }
+}
+
+.text {
+  font-size: 1rem;
+  letter-spacing: .04em;
+  text-align: center;
+
+}
+
+table {
+  width: 100%;
+}
+
+tr.table-detail-row {
+  height: 0;
+}
+
+tr.table-element-row:not(.table-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.table-element-row:not(.table-expanded-row):active {
+  background: #efefef;
+}
+
+.table-element-row td {
+  border-bottom-width: 0;
+}
+
+.table-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.table-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.table-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.table-element-description {
+  padding: 16px;
+}
+
+.table-element-description-attribution {
+  opacity: 0.5;
+}
+
+.info-block {
+  @include flex (row, nowrap, space-around, flex-start);
+  width: 100%;
+  &__wrapper {
+    @include flex (row, wrap, space-around, center);
+    width: 30%;
+  }
+  &__row {
+    margin-left: .4em;
+  }
+
+}
+
+.more-info {
+  margin-left: 1em;
+  width: 65%;
+
+  p {
+    font-size: 0.9rem;
+  }
+}

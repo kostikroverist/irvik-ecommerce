@@ -1,0 +1,71 @@
+<div class="categories">
+  <div class="form-block">
+    <form class="example-form">
+      <mat-form-field class="categories__input">
+        <mat-label>Category name uk</mat-label>
+        <input  type="text" matInput [(ngModel)]="nameUk" name="nameUk" />
+      </mat-form-field>
+      <mat-form-field class="categories__input">
+        <mat-label>Category name pl</mat-label>
+        <input  type="text" matInput [(ngModel)]="namePl" name="namePl"  />
+      </mat-form-field>
+      <mat-form-field class="categories__input">
+        <mat-label>Category name en</mat-label>
+        <input  type="text" matInput  [(ngModel)]="nameEn" name="nameEn" />
+      </mat-form-field>
+      <ng-container *ngIf="isEdited; else appBtn">
+        <button mat-raised-button color="accent"  [disabled]='!nameEn || !namePl || !nameUk' (click)="updateCategory()">Update</button>
+      </ng-container>
+      <ng-template #appBtn>
+        <button mat-raised-button color="primary"  [disabled]='!nameEn || !namePl || !nameUk' (click)="addCategory()">Add</button>
+      </ng-template>
+
+    </form>
+  </div>
+  <div class="table-block">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="categorySource">
+
+        <ng-container matColumnDef="categoryEn">
+          <th mat-header-cell *matHeaderCellDef> Name En </th>
+          <td mat-cell *matCellDef="let element"> {{element.categoryEn}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryUk">
+          <th mat-header-cell *matHeaderCellDef> Name Uk </th>
+          <td mat-cell *matCellDef="let element"> {{element.categoryUk}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryPl">
+          <th mat-header-cell *matHeaderCellDef> Name Pl </th>
+          <td mat-cell *matCellDef="let element"> {{element.categoryPl}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef> Edit </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="accent" (click)="editCategory(element)">Edit</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="warn" (click)="deleteCategory(element.id)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+</div>
+
+ <!-- <hr style="margin: 1em 0;">
+<div *ngFor="let cat of categories; index as i">
+  <p style="font-size: 20px;"><span>{{ i + 1 + ') '}}</span>{{ 'categories.' + convertToSnakeCase(cat.categoryEn) | translate }}</p>
+</div> -->

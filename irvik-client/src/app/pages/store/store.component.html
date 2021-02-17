@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="store">
+    <div class="store__category-block">
+      <div class="store__category-title">
+        <h3>{{ "store.categories" | translate | titlecase }}:</h3>
+      </div>
+      <div class="store__categories">
+        <a (click)="getProducts()">{{
+          "categories.all" | translate | titlecase
+        }}</a>
+      </div>
+
+      <div *ngFor="let cat of categories; index as i" class="store__categories">
+        <!-- * start category for spring REST API -->
+        <a (click)="searchProductsByFullText(cat.categoryEn)">{{
+          "categories." + convertToSnakeCase(cat.categoryEn)
+            | translate
+            | titlecase
+        }}</a>
+        <!-- * end category for spring REST API -->
+
+        <!-- * start category for fake REST API -->
+        <!-- <a>{{
+          "categories." + convertToSnakeCase(cat.categoryEn)
+            | translate
+            | titlecase
+        }}</a> -->
+        <!-- * end category for fake REST API -->
+      </div>
+    </div>
+
+    <div class="store__search-and-products-block">
+      <form class="store__search" (ngSubmit)="searchProductsByFullText()">
+        <input type="text" [(ngModel)]="searchName" name="searchName"/>
+        <!-- * start search btn for spring REST API -->
+        <span>
+          <button
+            type="submit"
+            matRipple
+            class="btn btn__bg-white"
+          >
+            Search
+          </button>
+        </span>
+        <!-- * end search btn for spring REST API -->
+
+        <!-- * start search btn for fake REST API -->
+        <!-- <span>
+          <button matRipple class="btn btn__bg-white">Search</button>
+        </span> -->
+        <!-- * end search btn for fake REST API -->
+
+      </form>
+
+      <div class="store__products">
+        <div class="store__product product" *ngFor="let product of products">
+          <div class="product__image-wrapper">
+            <a [routerLink]="['/store/product/', product.id]">
+              <img [src]="product.images[0].Location" [alt]="product.titleEn" />
+            </a>
+            <button matRipple class="btn btn__icon btn__icon--favorite">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+          </div>
+          <h4 class="product__title">
+            {{
+              "title." + convertToSnakeCase(product.titleEn)
+                | translate
+                | titlecase
+            }}
+          </h4>
+
+          <div class="product__info">
+            <ng-container *ngIf="product.discount">
+              <div class="product__price-info">
+                <span class="product__last-price"
+                  >{{ product.price | number: "1.2-2" }}zł</span
+                >
+                <span class="product__current-price"
+                  >{{ product.totalPrice | number: "1.2-2" }}zł</span
+                >
+              </div>
+              <button matRipple class="btn btn__icon">
+                <mat-icon>shopping_cart</mat-icon>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!product.discount">
+              <div class="product__price">
+                <span>{{ product.totalPrice | number: "1.2-2" }}zł</span>
+              </div>
+              <button matRipple class="btn btn__icon">
+                <mat-icon>shopping_cart</mat-icon>
+              </button>
+            </ng-container>
+          </div>
+          <div class="product__description">
+            <p style="margin-bottom: .5em;">
+              <b>{{ "product.materials" | translate | titlecase }}: </b>
+              {{
+                "materials." + convertToSnakeCase(product.materialEn)
+                  | translate
+                  | titlecase
+              }}
+            </p>
+            <ul>
+              <li>
+                {{ "product.width" | translate | titlecase }}:
+                {{ product.width }} cm
+              </li>
+              <li>
+                {{ "product.length" | translate | titlecase }}:
+                {{ product.length }} cm
+              </li>
+              <li>
+                {{ "product.height" | translate | titlecase }}:
+                {{ product.height }} cm
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

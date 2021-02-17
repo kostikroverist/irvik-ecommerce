@@ -1,0 +1,30 @@
+
+shared/guards/login.guard.ts {
+  uncomment the canActivate witch check token;
+  comment the canActivate witch just return true;
+}
+
+shared/services/categories.service.ts {
+  uncomment the urls for spring REST API;
+  comment the urls for fake REST API;
+  uncomment the methods for spring REST API;
+  comment the methods for fake REST API;
+}
+
+shared/services/product.service.ts {
+  uncomment the urls for spring REST API;
+  comment the urls for fake REST API;
+  uncomment the methods for spring REST API;
+  comment the methods for fake REST API;
+}
+
+pages/store/store.component.ts {
+  uncomment the searchProductsByFullText method;
+}
+
+pages/store/store.component.html {
+  uncomment the category for spring REST API;
+  comment the category for fake REST API;
+  uncomment the search btn for spring REST API;
+  comment the search btn for fake REST API;
+}

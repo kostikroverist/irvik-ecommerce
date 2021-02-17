@@ -1,0 +1,8 @@
+<app-header></app-header>
+<div #container >
+  <router-outlet></router-outlet>
+  <app-scroll-btn></app-scroll-btn>
+</div>
+<app-footer></app-footer>
+
+<app-sign-in *ngIf="isOpenModal" ></app-sign-in>

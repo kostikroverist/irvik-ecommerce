@@ -1,0 +1,249 @@
+@import "../../../scss/variables";
+@import "./../../../scss/mixins";
+.product-details {
+  width: 100%;
+  margin-top: 3em;
+
+  @include flex(row, wrap, space-between, stretch);
+  &__images {
+    width: 40%;
+    background-color: $bg-card;
+    padding: 0.8em;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px 5px 5px 5px;
+  }
+
+  &__info {
+    @include flex(column, wrap, space-between, flex-start);
+    background-color: $bg-card;
+    width: 58%;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px 5px 30px;
+    padding: 2em 1em;
+  }
+
+  &__title-wrapper {
+    @include flex(row, wrap, space-between, center);
+
+    h2 {
+      flex: 8;
+      font-size: 2.3rem;
+    }
+    margin-bottom: 1em;
+
+  }
+
+  &__discount {
+    display: inline;
+    font-size: 1.25rem;
+    background-image: $border-gradient-for-btn;
+    color: #fafafa;
+    padding: 0.5em 0.9em;
+    border-radius: 5px;
+
+  }
+
+  &__description {
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__params {
+    font-size: 1.1rem;
+    margin-top: 1em;
+  }
+
+  &__size {
+    @include flex(row, wrap, space-between, center);
+    font-size: 1.1rem;
+    margin-top: 1em;
+  }
+
+  &__bottom {
+    @include flex(column, wrap, space-between, flex-start);
+    width: 100%;
+  }
+  &__price {
+    width: 100%;
+    margin-bottom: 1em;
+    @include flex(row, wrap, flex-start, center);
+    p + p {
+      margin-left: 1em;
+    }
+
+    p {
+      font-size: 2rem;
+    }
+  }
+  &__bottom-row {
+    width: 100%;
+    @include flex(row, wrap, space-between, center);
+  }
+
+  &__counter {
+    @include flex(row, wrap, space-between, center);
+  }
+
+  &__total-price {
+    padding: 0.5em 0.9em;
+    background: #ffffff;
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-size: 1.2rem;
+  }
+
+  &__count {
+    @include flex(row, wrap, flex-start, flex-start);
+  }
+
+  &__count-block {
+    input {
+      font-size: 1.2rem;
+      background: #ffffff;
+      box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+      border-radius: 5px 0px 0px 5px;
+      padding: 0.5em 0.7em;
+      display: inline;
+      width: 60px;
+    }
+  }
+  &__count-buttons-wrapper {
+    @include flex(column, wrap, flex-start, flex-start);
+    height: 100%;
+    width: 30px;
+    button {
+      font-size: 1.25rem;
+      width: 100%;
+      display: block;
+      background: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease-in;
+      &:hover {
+        background: #faf8f8;
+      }
+    }
+  }
+  &__increment {
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 5px 0px 0px;
+  }
+
+  &__decrement {
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 5px 0px;
+  }
+
+  &__btn-wrapper {
+    padding: 0.2em;
+    background-image: $border-gradient-for-btn;
+    border-radius: 30px;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      transform: translateY(2px);
+    }
+    .btn {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.images-gallery {
+  &__main-img {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 27px 5px 5px 5px;
+    cursor: zoom-in;
+    img {
+      width: 100%;
+    }
+  }
+  &__wrapper {
+    position: relative;
+  }
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    z-index: 199;
+    background-color: rgb(219, 217, 217);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    &--prev {
+      left: 10px;
+    }
+    &--next {
+      right: 10px;
+    }
+    &:hover {
+      background-color: rgb(204, 202, 202);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &__row-of-images {
+    margin-top: 0.8em;
+    @include flex(row, wrap, flex-start, flex-start);
+    row-gap: 0.6em;
+    column-gap: 2%;
+    overflow: hidden;
+  }
+
+  &__img-wrapper {
+    overflow: hidden;
+    cursor: pointer;
+    background-color: white;
+    width: 100%;
+    // box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: block;
+    position: relative;
+    @include flex(row, wrap, center, center);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    &--static {
+      width: 32%;
+    }
+    &--clicked {
+      background-image: $border-gradient-for-btn;
+
+      img {
+        border-radius: 5px;
+        transform: scale(0.96);
+      }
+    }
+  }
+}
+
+.carousel {
+  margin-top: 2em;
+  border-radius: 15px;
+  background-color: $bg-card;
+  padding: 1em 1em 0;
+  &__row-of-images {
+  }
+
+  &__img-wrapper {
+    border-radius: 5px;
+    overflow: hidden;
+    img {
+      border-radius: 5px;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "navbar": {
+    "home": "home",
+    "store": "sklep",
+    "aboutUs": "O NAS"
+  },
+  "store": {
+    "categories": "kategorie"
+  },
+  "categories": {
+    "all": "Pokaż wszystkie"
+  },
+  "product": {
+    "width": "szerokość",
+    "length": "długość",
+    "height": "wysokość",
+    "materials": "materiał",
+    "price": "Cena"
+  },
+  "btn": {
+    "buy": "kupić"
+  },
+  "signInLan": {
+    "login": "Zaloguj sie",
+    "password": "hasło"
+  }
+}

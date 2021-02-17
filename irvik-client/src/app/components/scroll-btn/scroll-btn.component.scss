@@ -1,0 +1,53 @@
+@import "../../../scss/variables";
+
+.scroll-top {
+  position: fixed;
+  right: 50px;
+  bottom: 100px;
+  border-radius: 50%;
+  padding: 0.2em;
+  background-image: $border-gradient-for-btn;
+  box-shadow: $basic-shadow;
+  animation: scroll-btn-animation 1.3s ease-in-out infinite;
+  z-index: 1111;
+  &__btn {
+    display: block;
+    padding: 0.5em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-image: $header-bg;
+  }
+  &__icon {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 32px;
+    color: #ffffff;
+  }
+}
+
+@keyframes scroll-btn-animation {
+  0% {
+    bottom: 130px;
+    transform: scale(1);
+    box-shadow: $basic-shadow;
+  }
+  50% {
+    bottom: 135px;
+    transform: scale(1.1);
+    box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.28);
+  }
+  100% {
+    bottom: 130px;
+    transform: scale(1);
+    box-shadow: $basic-shadow;
+  }
+}
+
+@media screen and (max-width: 1270px) {
+  .scroll-top {
+    right: 80px;
+  }
+}

@@ -1,0 +1,17 @@
+.categories {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .form-block {
+    width: 37%;
+  }
+  .table-block {
+    width: 60%;
+  }
+  &__input {
+    width: 100%;
+  }
+}
+table {
+  width: 100%;
+}

@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="sidebar">
+    <mat-card class="sidebar__card">
+      <button class="btn-width" mat-raised-button [routerLink]="['/admin/products']" routerLinkActive="mat-primary">
+        Products
+      </button>
+      <button class="btn-width" mat-raised-button [routerLink]="['/admin/categories']" routerLinkActive="mat-primary">
+        Categories
+      </button>
+
+      <button mat-stroked-button color='warn' class="sign-out-btn btn-width" (click)="logout()">
+        Sign Out
+      </button>
+    </mat-card>
+  </div>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

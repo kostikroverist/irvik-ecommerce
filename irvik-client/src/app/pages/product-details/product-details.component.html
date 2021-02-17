@@ -1,0 +1,208 @@
+<div class="container">
+  <div class="product-details">
+    <div class="product-details__images">
+      <div class="images-gallery">
+        <div class="images-gallery__wrapper">
+          <button
+            class="images-gallery__arrow images-gallery__arrow--prev"
+            (click)="slider.prev()"
+            [disabled]="isDisabledPrevArrow"
+          >
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <a
+            class="images-gallery__main-img"
+            (click)="showGallery(slider.index)"
+          >
+            <img [src]="activeImage" alt="" />
+          </a>
+          <button
+            class="images-gallery__arrow images-gallery__arrow--next"
+            (click)="slider.next()"
+            [disabled]="isDisabledNextArrow"
+          >
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+
+        <ng-container *ngIf="images.length > 3; else staticImages">
+          <owl-carousel-o
+            class="images-gallery__row-of-images"
+            [options]="customOptions"
+          >
+            <ng-template
+              carouselSlide
+              *ngFor="let img of images; index as i"
+              [dataMerge]="i"
+            >
+              <a
+                class="images-gallery__img-wrapper slide"
+                (click)="openImage(img.Location)"
+                [ngClass]="{
+                  'images-gallery__img-wrapper--clicked': img.Location === activeImage
+                }"
+              >
+                <img [src]="img.Location"  alt="img.Key"/>
+              </a>
+            </ng-template>
+          </owl-carousel-o>
+        </ng-container>
+        <ng-template #staticImages>
+          <div class="images-gallery__row-of-images">
+            <a
+              *ngFor="let img of images; index as i"
+              class="images-gallery__img-wrapper images-gallery__img-wrapper--static"
+              (click)="openImage(img.Location)"
+              [ngClass]="{
+                'images-gallery__img-wrapper--clicked': img.Location === activeImage
+              }"
+            >
+              <img [src]="img.Location" alt="img.Key" />
+            </a>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="product-details__info">
+      <ng-container *ngIf="product">
+        <div style="width: 100%">
+          <div class="product-details__title-wrapper">
+            <h2 [ngStyle]="{ flex: product.discount ? 8 : 100 }">
+              {{
+                "title." + convertToSnakeCase(product.titleEn)
+                  | translate
+                  | titlecase
+              }}
+            </h2>
+
+            <div style="flex: 2; display: flex; justify-content: flex-end">
+              <div class="product-details__discount" *ngIf="product?.discount">
+                -
+                {{ percent }}
+              </div>
+            </div>
+          </div>
+
+          <div class="product-details__description">
+            <p>
+              {{
+                "description." + convertToSnakeCase(product.titleEn) | translate
+              }}
+            </p>
+          </div>
+
+          <div class="product-details__params">
+            <p>
+              <b>{{ "product.materials" | translate | titlecase }}:</b>
+              {{
+                "materials." + convertToSnakeCase(product.materialEn)
+                  | translate
+              }}
+            </p>
+          </div>
+
+          <div class="product-details__size">
+            <div>
+              <p>
+                <b>{{ "product.width" | translate | titlecase }}: </b>
+                {{ product.width }}cm.
+              </p>
+              <p>
+                <b>{{ "product.height" | translate | titlecase }}: </b>
+                {{ product.height }}cm.
+              </p>
+              <p>
+                <b>{{ "product.length" | translate | titlecase }}: </b>
+                {{ product.length }}cm.
+              </p>
+            </div>
+            <div>
+              <p><b>Id: </b> {{ product.unitId }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="product-details__bottom">
+          <div class="product-details__price price">
+            <ng-container *ngIf="product.discount; else withoutDiscount">
+              <div class="price__wrapper">
+                <p>
+                  <span style="text-decoration: line-through"
+                    >{{ product.price | number: "1.2-2" }}zł</span
+                  >
+                </p>
+                <p class="price__with-discount">
+                  {{
+                    product.price - (product.price * parse(percent!)) / 100
+                      | number: "1.2-2"
+                  }}zł
+                </p>
+              </div>
+            </ng-container>
+            <ng-template #withoutDiscount>
+              <p>{{ product.price | number: "1.2-2" }}zł</p>
+            </ng-template>
+          </div>
+          <div class="product-details__bottom-row">
+            <div class="product-details__counter">
+              <div class="product-details__total-price">
+                {{ product.totalPrice * product.count | number: "1.2-2" }}zł
+              </div>
+              <mat-icon style="color: #767676">close</mat-icon>
+              <div class="product-details__count">
+                <div class="product-details__count-block">
+                  <input
+                    type="number"
+                    [ngStyle]="{
+                      width: (product.count.toString().length + 3) * 15 + 'px'
+                    }"
+                    [(ngModel)]="product.count"
+                    (change)="checkCount()"
+
+                  />
+                </div>
+
+                <div class="product-details__count-buttons-wrapper">
+                  <button
+                    class="product-details__increment"
+                    (click)="counter()"
+                  >
+                    +
+                  </button>
+                  <button
+                    class="product-details__decrement"
+                    (click)="counter(false)"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="product-details__btn-wrapper">
+              <button class="btn btn__bg-white" mat-ripple>
+                {{ "btn.buy" | translate | uppercase }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="carousel">
+    <owl-carousel-o class="carousel__row-of-images" [options]="carouselOption">
+      <ng-template
+        carouselSlide
+        *ngFor="let prod of products; index as i"
+        [dataMerge]="i"
+      >
+        <a
+          class="carousel__img-wrapper slide"
+          [routerLink]="['/store/product/', prod.id]"
+        >
+          <img [src]="prod.images[0].Location" alt="product.images[0].Key"/>
+        </a>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</div>

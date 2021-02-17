@@ -1,0 +1,32 @@
+<div class="shadow-wrapper" (click)="closeModal($event)">
+  <div class="sign-in">
+    <div class="sign-in__main">
+      <div class="sign-in__icon-wrapper">
+        <img src="../../../assets/img/New_LOGO.png" alt="">
+      </div>
+      <div class="sign-in__form-content">
+
+        <form [formGroup]='signIn' (ngSubmit)="login()">
+          <div class="sign-in__error-message">
+            <p>Write correct login and password</p>
+          </div>
+          <div class="sign-in__form-control" >
+            <input type="text" [placeholder]="'signInLan.login' | translate | titlecase" formControlName="userName" autocomplete="off">
+          </div>
+
+          <div class="sign-in__form-control">
+            <input type="password"[placeholder]="'signInLan.password' | translate | titlecase" formControlName="password" autocomplete="off" >
+          </div>
+
+          <div class="sign-in__btn-wrapper">
+            <span class="btn-wrapper" [ngClass]="{'btn-wrapper__disabled': signIn.invalid}">
+              <button type="submit" mat-ripple [disabled]="signIn.invalid" class="btn btn__bg-white btn__bg-white--width-auto">SIGN IN</button>
+            </span>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

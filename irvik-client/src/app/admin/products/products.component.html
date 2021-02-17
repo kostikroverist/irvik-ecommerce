@@ -1,0 +1,253 @@
+<mat-tab-group mat-stretch-tabs="center" [selectedIndex]="tabsIndex" (selectedIndexChange)="setTabs($event)">
+  <mat-tab label="Form">
+    <form class="form" [formGroup]="productGroup" (ngSubmit)="isEditing ? updateProduct() : addProduct()">
+      <div class="form__left">
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Choose category</mat-label>
+            <mat-select formControlName='category'>
+              <mat-option *ngFor="let category of categories" [value]='category.categoryEn'>
+                {{ category.categoryEn }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Unit id</mat-label>
+            <input formControlName='unitId' matInput placeholder="example: 12923109">
+          </mat-form-field>
+        </div>
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--30" appearance="standard">
+            <mat-label>Width (cm)</mat-label>
+            <input formControlName='width' matInput placeholder="example: 30">
+          </mat-form-field>
+          <mat-form-field class="form__control form__control--30" appearance="standard">
+            <mat-label>Length (cm)</mat-label>
+            <input formControlName='length' matInput placeholder="example: 40">
+          </mat-form-field>
+          <mat-form-field class="form__control form__control--30" appearance="standard">
+            <mat-label>Height (cm)</mat-label>
+            <input formControlName='height' matInput placeholder="example: 40">
+          </mat-form-field>
+        </div>
+
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--30" appearance="standard">
+            <mat-label>Price</mat-label>
+            <input formControlName='price' matInput type="number" placeholder="example: 30">
+          </mat-form-field>
+          <div style="display: flex; flex-direction: column;">
+            <mat-checkbox color='primary' formControlName='discount' (change)="changeIsDiscount()">Add discount?
+            </mat-checkbox>
+            <mat-checkbox color='primary' formControlName='available'>Is available?
+            </mat-checkbox>
+          </div>
+          <mat-form-field class="form__control form__control--30" appearance="standard">
+            <mat-label>Discount</mat-label>
+            <input formControlName='discountPercent' matInput placeholder="example: 10%" >
+          </mat-form-field>
+        </div>
+        <h5 class="text">Upload images here</h5>
+        <div class="form__control-container">
+          <div class="form__upload--wrapper">
+            <input type="file" name="files" id="files" multiple class="form__upload" (change)="uploadFiles($event)">
+            <label for="files" class="form__upload-btn">
+              <mat-icon>upload</mat-icon>
+            </label>
+          </div>
+        </div>
+        <div class="form__images">
+          <mat-card *ngFor="let image of arrFiles; index as i">
+            <img [src]="image.Location">
+            <div class="form__image-delete-btn-wrapper">
+              <button mat-stroked-button type="button" color="warn" (click)="deleteImage(i)">Delete</button>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+
+      <div class="form__right">
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Title en</mat-label>
+            <input formControlName='titleEn' matInput>
+          </mat-form-field>
+
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Title pl</mat-label>
+            <input formControlName='titlePl' matInput>
+          </mat-form-field>
+        </div>
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Title uk</mat-label>
+            <input formControlName='titleUk' matInput>
+          </mat-form-field>
+
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Material uk</mat-label>
+            <input formControlName='materialUk' matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="form__control-container">
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Material en</mat-label>
+            <input formControlName='materialEn' matInput>
+          </mat-form-field>
+
+          <mat-form-field class="form__control form__control--50" appearance="standard">
+            <mat-label>Material pl</mat-label>
+            <input formControlName='materialPl' matInput>
+          </mat-form-field>
+        </div>
+        <div class="form__control-container">
+          <mat-form-field class="form__control" appearance="standard">
+            <mat-label>Description Pl</mat-label>
+            <textarea formControlName='descriptionPl' matInput></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form__control-container">
+          <mat-form-field class="form__control" appearance="standard">
+            <mat-label>Description En</mat-label>
+            <textarea formControlName='descriptionEn' matInput></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form__control-container">
+          <mat-form-field class="form__control" appearance="standard">
+            <mat-label>Description Uk</mat-label>
+            <textarea formControlName='descriptionUk' matInput></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="form__buttons">
+        <ng-container *ngIf="!isEditing; else updateBtn">
+          <button mat-raised-button type="submit" color="primary"
+            [disabled]="productGroup.invalid || !arrFiles.length">Add Product</button>
+        </ng-container>
+        <ng-template #updateBtn>
+          <button mat-raised-button type="submit" color="accent">Update Product</button>
+        </ng-template>
+
+        <button mat-raised-button type="button" color="warn" (click)="productGroup.reset()">Clear form</button>
+      </div>
+    </form>
+
+
+  </mat-tab>
+
+  <mat-tab class="table" label="Table">
+
+    <table mat-table [dataSource]="products" multiTemplateDataRows class="mat-elevation-z8">
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.images[0].Location" width="200" height="270" style="object-fit: cover; object-position: center;" >
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell *matCellDef="let element">
+          <h4>{{ element.category }}</h4>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="titleUk">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element">
+          <h3>{{ element.titleUk }}</h3>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unitId">
+        <th mat-header-cell *matHeaderCellDef> Unit Id </th>
+        <td mat-cell *matCellDef="let element">
+          <h3>{{ element.unitId }}</h3>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element">
+          <h3 [style.textDecoration]="element.isDiscount ? 'line-through': 'none'">{{ element.price | number: '1.2-2' }}zl
+          </h3>
+          <h4 *ngIf="element.isDiscount">{{ element.totalPrice | number: '1.2-2' }} zl</h4>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="accent" (click)="editProduct(element)" type="button">Edit</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn" (click)="deleteProduct(element.id)">Delete</button>
+        </td>
+      </ng-container>
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="table-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="info-block">
+              <div class="info-block__wrapper">
+                <div class="info-block__row" *ngFor="let img of element.images; first as f">
+                  <img *ngIf="!f" [src]="img.Location" width="150px" height="200px" style="object-fit: cover; object-position: center;">
+                </div>
+              </div>
+              <div class="more-info">
+                <div class="more-info__description-wrapper">
+                  <mat-card style="margin: 0.5em 0;">
+                    <div class="more-info__description">
+                      <h4>Опис товару:</h4>
+                      <p>{{ element.descriptionUk }}</p>
+                    </div>
+                  </mat-card>
+                  <mat-card style="margin: 0.5em 0;">
+                    <div class="more-info__description">
+                      <h4>Матеріали:</h4>
+                      <p>{{ element.materialUk }}</p>
+                    </div>
+                  </mat-card>
+                  <mat-card style="margin: 0.5em 0;">
+                    <div class="more-info__description">
+                      <h4>Розміри</h4>
+                      <p> <b>Висота: </b>{{ element.height }} cm</p>
+                      <p><b>Довжина: </b>{{ element.length }} cm</p>
+                      <p><b>Ширина: </b>{{ element.width }} cm</p>
+                    </div>
+                  </mat-card>
+                </div>
+                <mat-card *ngIf="element.discount" style="margin: 0.5em 0;">
+                  <h4>Знижки</h4>
+                  <p><b>Проценти:</b> {{ element.discountPercent }}%</p>
+                  <p><b>Ціна зі знижкою:</b> {{ element.totalPrice | number: '1.2-2' }}zl</p>
+                </mat-card>
+
+                <mat-card *ngIf="!element.available" style="margin: 0.5em 0;">
+                  <p>Немає в наявності</p>
+                </mat-card>
+
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="table-element-row"
+        [class.table-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="table-detail-row"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  </mat-tab>
+</mat-tab-group>

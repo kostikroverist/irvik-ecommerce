@@ -1,0 +1,84 @@
+<header class="header">
+  <div class="container">
+    <div class="header__icon">
+      <a href="#" class="logo" routerLink='/'>
+        <img src="../../../assets/img/New_LOGO.png" alt="">
+      </a>
+    </div>
+    <nav>
+      <ul class="header__menu-list">
+        <li routerLinkActive="active">
+          <a matRipple [routerLink]="['/home']" routerLinkActive='active'>{{ 'navbar.home' | translate | titlecase }}</a>
+        </li>
+        <li routerLinkActive="active">
+          <a matRipple [routerLink]="['/store']" routerLinkActive='active'>{{ 'navbar.store' | translate | titlecase }}</a>
+        </li>
+        <li routerLinkActive="active">
+          <a matRipple [routerLink]="['/about-us']" routerLinkActive='active'>{{ 'navbar.aboutUs' | translate | titlecase }}</a>
+        </li>
+      </ul>
+      <ul class="header__menu-with-icon-list">
+        <ng-container *ngIf="isAuth; else loginModalBtn">
+          <li routerLinkActive="active">
+            <a matRipple [routerLink]="['/admin']"  routerLinkActive='active'>
+              <mat-icon class="header__icon">person</mat-icon>
+            </a>
+          </li>
+        </ng-container>
+        <ng-template #loginModalBtn>
+          <li routerLinkActive="active">
+            <a matRipple (click)="loginService.openLoginModal.next(true)" style="cursor: pointer;" routerLinkActive='active'>
+              <mat-icon class="header__icon">person</mat-icon>
+            </a>
+          </li>
+        </ng-template>
+        
+       
+        <li routerLinkActive="active">
+          <a matRipple [routerLink]="['/favorites']" routerLinkActive='active'>
+            <mat-icon class="header__icon">favorite_border</mat-icon>
+          </a>
+        </li>
+        <li routerLinkActive="active">
+          <a matRipple [routerLink]="['/bag']" routerLinkActive='active'>
+            <mat-icon class="header__icon">shopping_cart</mat-icon>
+          </a>
+        </li>
+        <li> <span>1234zl</span> </li>
+      </ul>
+    </nav>
+    <div class="header__languages">
+      <ul>
+        <li class="header__form-control">
+          <label for="pl-lang">
+            <input type="radio" appLang (click)="changeLang($event)" name="lang-radio" value="pl" id="pl-lang">
+            <span >
+              <img src="../../../assets/img/poland.svg" alt="pl">
+            </span>
+          </label>
+        </li>
+        <li class="header__form-control">
+          <label for="en-lang">
+            <input type="radio" appLang (click)="changeLang($event)" name="lang-radio"  value="en" id="en-lang">
+            <span >
+              <img src="../../../assets/img/united-kingdom.svg" alt="en">
+            </span>
+          </label>
+        </li>
+        <li class="header__form-control">
+          <label for="uk-lang">
+            <input type="radio" appLang (click)="changeLang($event)" name="lang-radio" value="uk" id="uk-lang">
+            <span >
+              <img src="../../../assets/img/ukraine.svg" alt="uk">
+            </span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<a class="burger-menu">
+  <span class="burger-menu__line" style="height: 1.5px;"></span>
+  <span class="burger-menu__line" style="height: 1.5px;"></span>
+  <span class="burger-menu__line" style="height: 1.5px;"></span>
+</a>

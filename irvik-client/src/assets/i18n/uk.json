@@ -1,0 +1,28 @@
+{
+  "navbar": {
+    "home": "головна",
+    "store": "магазин",
+    "aboutUs": "про нас"
+  },
+  "store": {
+    "categories": "категорії"
+  },
+  "categories": {
+    "all": "Показати всі"
+  },
+  "product": {
+    "width": "ширина",
+    "length": "довжина",
+    "height": "висота",
+    "materials": "матеріали",
+    "price": "ціна"
+  },
+  "btn": {
+    "buy": "купити"
+  },
+  "signInLan": {
+    "login": "логін",
+    "password": "пароль"
+  }
+
+}
